@@ -13,18 +13,23 @@ public class FaceDraw extends JPanel {
         FaceList = new ArrayList<Face>();
         random = new Random();
 
-        // Create 5 faces
-        for (int i = 0; i < 5; i++) {
+        // Randomly choose between 3 and 10 faces
+        int numberOfFaces = random.nextInt(8) + 3;
 
-            int width = 100;
-            int height = 100;
+        // Create the faces
+        for (int i = 0; i < numberOfFaces; i++) {
 
-            int x = random.nextInt(600);
+            // Random size between 70 and 130
+            int size = random.nextInt(61) + 70;
+
+            // Random location
+            int x = random.nextInt(650);
             int y = random.nextInt(350);
 
+            // Random mouth
             int mouth = random.nextInt(3);
 
-            Face face = new Face(width, height, x, y, mouth);
+            Face face = new Face(size, size, x, y, mouth);
 
             FaceList.add(face);
         }
@@ -34,7 +39,7 @@ public class FaceDraw extends JPanel {
 
         super.paintComponent(g);
 
-        // Background
+        // White background
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
 
@@ -51,31 +56,50 @@ public class FaceDraw extends JPanel {
         int width = face.getWidth();
         int height = face.getHeight();
 
-        // Face
+        // Draw face
         g.setColor(Color.YELLOW);
         g.fillOval(x, y, width, height);
 
-        // Eyes
+        // Draw eyes
         g.setColor(Color.BLACK);
 
-        g.fillOval(x + 25, y + 30, 15, 20);
-        g.fillOval(x + 60, y + 30, 15, 20);
+        g.fillOval(x + width / 4, y + height / 3, 15, 20);
+        g.fillOval(x + 3 * width / 4 - 15, y + height / 3, 15, 20);
 
-        // Mouth
+        // Draw mouth
         if (face.getMouth() == 2) {
 
             // Smile
-            g.drawArc(x + 25, y + 45, 50, 30, 200, 140);
+            g.drawArc(
+                x + width / 4,
+                y + height / 2,
+                width / 2,
+                height / 4,
+                200,
+                140
+            );
 
         } else if (face.getMouth() == 0) {
 
             // Frown
-            g.drawArc(x + 25, y + 60, 50, 30, 20, 140);
+            g.drawArc(
+                x + width / 4,
+                y + height / 2,
+                width / 2,
+                height / 4,
+                20,
+                140
+            );
 
         } else {
 
             // Neutral
-            g.drawLine(x + 30, y + 65, x + 70, y + 65);
+            g.drawLine(
+                x + width / 3,
+                y + height / 2 + 20,
+                x + 2 * width / 3,
+                y + height / 2 + 20
+            );
         }
     }
 
