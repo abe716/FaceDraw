@@ -27,11 +27,17 @@ public class FaceDraw extends JPanel {
             int y = random.nextInt(350);
 
             // Random mouth
+            // 0 = frown
+            // 1 = neutral
+            // 2 = smile
             int mouth = random.nextInt(3);
 
             Face face = new Face(size, size, x, y, mouth);
 
             FaceList.add(face);
+
+            // Print the face information
+            System.out.println(face);
         }
     }
 
@@ -56,17 +62,28 @@ public class FaceDraw extends JPanel {
         int width = face.getWidth();
         int height = face.getHeight();
 
-        // Draw face
+        // Draw the face
         g.setColor(Color.YELLOW);
         g.fillOval(x, y, width, height);
 
-        // Draw eyes
+        // Draw two eyes
         g.setColor(Color.BLACK);
 
-        g.fillOval(x + width / 4, y + height / 3, 15, 20);
-        g.fillOval(x + 3 * width / 4 - 15, y + height / 3, 15, 20);
+        g.fillOval(
+            x + width / 4,
+            y + height / 3,
+            15,
+            20
+        );
 
-        // Draw mouth
+        g.fillOval(
+            x + 3 * width / 4 - 15,
+            y + height / 3,
+            15,
+            20
+        );
+
+        // Draw the mouth
         if (face.getMouth() == 2) {
 
             // Smile
