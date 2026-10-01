@@ -1,15 +1,19 @@
-public class FaceDraw {
-    public static void main(String[] args) {
-        System.out.println("FaceDraw...");
- /* 
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        JFrame myFrame = new JFrame("Sad Cyclops FaceDraw");
-        myFrame.setBounds(100,100,900,500);
-        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+import java.util.ArrayList;
 
-        SadCyclopsPanel mySadCyclopsPanel = new SadCyclopsPanel();
-        myFrame.add(mySadCyclopsPanel);
-        myFrame.setVisible(true);
-        */
+public class FaceDraw {
+
+    public static void main(String[] args) {
+
+        ArrayList<Face> FaceList = new ArrayList<Face>();
+
+        FaceList.add(new Face());
+        FaceList.add(new Face(120, 120));
+        FaceList.add(new Face(150, 150, 200, 100, false));
+
+        System.out.println("Faces in FaceList:");
+
+        for (Face face : FaceList) {
+            System.out.println(face);
+        }
     }
 }
