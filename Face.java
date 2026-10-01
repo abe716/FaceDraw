@@ -16,21 +16,21 @@ public class Face {
     }
 
     // Second constructor
-    public Face(int width, int height) {
-        this.width = width;
-        this.height = height;
+    public Face(int w, int h) {
+        width = w;
+        height = h;
         x = 0;
         y = 0;
         mouth = 1;
     }
 
     // Third constructor
-    public Face(int width, int height, int x, int y, int mouth) {
-        this.width = width;
-        this.height = height;
-        this.x = x;
-        this.y = y;
-        this.mouth = mouth;
+    public Face(int w, int h, int xPosition, int yPosition, int mouthType) {
+        width = w;
+        height = h;
+        x = xPosition;
+        y = yPosition;
+        mouth = mouthType;
     }
 
     // Getters
@@ -55,27 +55,27 @@ public class Face {
     }
 
     // Setters
-    public void setWidth(int width) {
-        this.width = width;
+    public void setWidth(int w) {
+        width = w;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    public void setHeight(int h) {
+        height = h;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setX(int xPosition) {
+        x = xPosition;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setY(int yPosition) {
+        y = yPosition;
     }
 
-    public void setMouth(int mouth) {
-        this.mouth = mouth;
+    public void setMouth(int mouthType) {
+        mouth = mouthType;
     }
 
-    
+    // toString method
     public String toString() {
         return "Width: " + width +
                ", Height: " + height +
