@@ -4,6 +4,7 @@ public class Face {
     private int height;
     private int x;
     private int y;
+    private boolean smiling;
     private int mouth;
 
     // Default constructor
@@ -12,7 +13,8 @@ public class Face {
         height = 100;
         x = 0;
         y = 0;
-        mouth = 1;
+        smiling = true;
+        mouth = 2;
     }
 
     // Second constructor
@@ -21,7 +23,8 @@ public class Face {
         height = h;
         x = 0;
         y = 0;
-        mouth = 1;
+        smiling = true;
+        mouth = 2;
     }
 
     // Third constructor
@@ -31,6 +34,12 @@ public class Face {
         x = xPosition;
         y = yPosition;
         mouth = mouthType;
+
+        if (mouthType == 2) {
+            smiling = true;
+        } else {
+            smiling = false;
+        }
     }
 
     // Getters
@@ -48,6 +57,10 @@ public class Face {
 
     public int getY() {
         return y;
+    }
+
+    public boolean getSmiling() {
+        return smiling;
     }
 
     public int getMouth() {
@@ -71,6 +84,10 @@ public class Face {
         y = yPosition;
     }
 
+    public void setSmiling(boolean smile) {
+        smiling = smile;
+    }
+
     public void setMouth(int mouthType) {
         mouth = mouthType;
     }
@@ -81,6 +98,7 @@ public class Face {
                ", Height: " + height +
                ", X: " + x +
                ", Y: " + y +
+               ", Smiling: " + smiling +
                ", Mouth: " + mouth;
     }
 }

@@ -8,39 +8,72 @@ public class FaceDraw extends JPanel {
     private ArrayList<Face> FaceList;
     private Random random;
 
+    // Constructor
     public FaceDraw() {
 
         FaceList = new ArrayList<Face>();
         random = new Random();
 
-        // Randomly choose between 3 and 10 faces
+        // Random number of faces from 3 to 10
         int numberOfFaces = random.nextInt(8) + 3;
 
         // Create the faces
         for (int i = 0; i < numberOfFaces; i++) {
 
-            // Random size between 70 and 130
-            int size = random.nextInt(61) + 70;
+            // Random size from 70 to 120
+            int size = random.nextInt(51) + 70;
 
-            // Random location
-            int x = random.nextInt(650);
-            int y = random.nextInt(350);
+            // Starting values for the location
+            int x = 0;
+            int y = 0;
+
+            boolean goodPosition = false;
+
+            // Keep looking for a position that does not overlap
+            while (!goodPosition) {
+
+                // Random location
+                x = random.nextInt(680);
+                y = random.nextInt(350);
+
+                goodPosition = true;
+
+                // Check the new face against faces already created
+                for (Face oldFace : FaceList) {
+
+                    int oldX = oldFace.getX();
+                    int oldY = oldFace.getY();
+                    int oldSize = oldFace.getWidth();
+
+                    // Check if the faces overlap
+                    if (x < oldX + oldSize + 10 &&
+                        x + size + 10 > oldX &&
+                        y < oldY + oldSize + 10 &&
+                        y + size + 10 > oldY) {
+
+                        goodPosition = false;
+                    }
+                }
+            }
 
             // Random mouth
             // 0 = frown
-            // 1 = neutral
+            // 1 = straight/neutral
             // 2 = smile
             int mouth = random.nextInt(3);
 
+            // Create the Face
             Face face = new Face(size, size, x, y, mouth);
 
+            // Add the Face to FaceList
             FaceList.add(face);
 
-            // Print the face information
+            // Print Face information in the terminal
             System.out.println(face);
         }
     }
 
+    // Draw everything
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
@@ -55,6 +88,7 @@ public class FaceDraw extends JPanel {
         }
     }
 
+    // Draw one face
     public void drawFace(Graphics g, Face face) {
 
         int x = face.getX();
@@ -62,31 +96,74 @@ public class FaceDraw extends JPanel {
         int width = face.getWidth();
         int height = face.getHeight();
 
-        // Draw the face
+        // Draw the yellow face
         g.setColor(Color.YELLOW);
         g.fillOval(x, y, width, height);
 
-        // Draw two eyes
-        g.setColor(Color.BLACK);
+        // Choose eye color
+        Color eyeColor;
 
+        // Smiling face
+        if (face.getMouth() == 2) {
+
+            // 50% green and 50% blue
+            if (random.nextBoolean()) {
+                eyeColor = Color.GREEN;
+            } else {
+                eyeColor = Color.BLUE;
+            }
+
+        // Straight/neutral face
+        } else if (face.getMouth() == 1) {
+
+            eyeColor = Color.YELLOW;
+
+        // Frowning face
+        } else {
+
+            eyeColor = Color.RED;
+        }
+
+        // Black outline for left eye
+        g.setColor(Color.BLACK);
         g.fillOval(
             x + width / 4,
             y + height / 3,
-            15,
-            20
+            20,
+            25
         );
 
+        // Black outline for right eye
         g.fillOval(
-            x + 3 * width / 4 - 15,
+            x + 3 * width / 4 - 20,
             y + height / 3,
-            15,
-            20
+            20,
+            25
+        );
+
+        // Colored part of left eye
+        g.setColor(eyeColor);
+        g.fillOval(
+            x + width / 4 + 3,
+            y + height / 3 + 3,
+            14,
+            19
+        );
+
+        // Colored part of right eye
+        g.fillOval(
+            x + 3 * width / 4 - 17,
+            y + height / 3 + 3,
+            14,
+            19
         );
 
         // Draw the mouth
+        g.setColor(Color.BLACK);
+
+        // Smile
         if (face.getMouth() == 2) {
 
-            // Smile
             g.drawArc(
                 x + width / 4,
                 y + height / 2,
@@ -96,21 +173,21 @@ public class FaceDraw extends JPanel {
                 140
             );
 
+        // Frown
         } else if (face.getMouth() == 0) {
 
-            // Frown
             g.drawArc(
                 x + width / 4,
-                y + height / 2,
+                y + height / 2 + 10,
                 width / 2,
                 height / 4,
                 20,
                 140
             );
 
+        // Straight/neutral
         } else {
 
-            // Neutral
             g.drawLine(
                 x + width / 3,
                 y + height / 2 + 20,
@@ -120,6 +197,7 @@ public class FaceDraw extends JPanel {
         }
     }
 
+    // Main method
     public static void main(String[] args) {
 
         JFrame frame = new JFrame("Face Draw");
